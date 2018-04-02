@@ -1,0 +1,11 @@
+C:\Users\Gabe\source\repos\Down2\DBConnect\DBConnect\bin\Debug\DBConnect.exe.config
+C:\Users\Gabe\source\repos\Down2\DBConnect\DBConnect\bin\Debug\DBConnect.exe
+C:\Users\Gabe\source\repos\Down2\DBConnect\DBConnect\bin\Debug\DBConnect.pdb
+C:\Users\Gabe\source\repos\Down2\DBConnect\DBConnect\bin\Debug\MySql.Data.dll
+C:\Users\Gabe\source\repos\Down2\DBConnect\DBConnect\bin\Debug\Google.Protobuf.dll
+C:\Users\Gabe\source\repos\Down2\DBConnect\DBConnect\bin\Debug\MySql.Data.xml
+C:\Users\Gabe\source\repos\Down2\DBConnect\DBConnect\obj\Debug\DBConnect.csprojResolveAssemblyReference.cache
+C:\Users\Gabe\source\repos\Down2\DBConnect\DBConnect\obj\Debug\DBConnect.csproj.CoreCompileInputs.cache
+C:\Users\Gabe\source\repos\Down2\DBConnect\DBConnect\obj\Debug\DBConnect.csproj.CopyComplete
+C:\Users\Gabe\source\repos\Down2\DBConnect\DBConnect\obj\Debug\DBConnect.exe
+C:\Users\Gabe\source\repos\Down2\DBConnect\DBConnect\obj\Debug\DBConnect.pdb
