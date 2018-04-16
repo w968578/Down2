@@ -17,6 +17,7 @@ public class Variables : MonoBehaviour {
     public Vector3 moveUp;
     public Vector3 moveLeft;
     public Vector3 moveRight;
+    private bool occupied = false;
 
     //make a prefab DRR
     public GameObject archerPrefab;    
@@ -57,11 +58,9 @@ public class Variables : MonoBehaviour {
             archer.AddComponent<Rigidbody>().useGravity = false;
             army[i] = archer;
         }
-
         selectArcher(army[0]);
-        
     }
-    // Update is called once per frame
+    // Update is called once per frame, attaches meaning to button pushes
     void Update()
     {
         if (Input.GetKeyDown("q"))
@@ -72,20 +71,173 @@ public class Variables : MonoBehaviour {
         {
             GetArcherRight();
         }
-        if (Input.GetKeyDown("up"))
+       
+        if(Input.GetKeyDown("u"))
         {
-            PushUp(selectedArcher.transform.position);
+            if ((selectedArcher.transform.position.x + (-Mathf.Sqrt(3)) < -(.5f+Mathf.Sqrt(3)/2)) ||
+                (selectedArcher.transform.position.z + 1.5f > 21))
+            {
+                print("Off the board. Illegal move. Try to move elsewhere.");
+            }
+            else
+            {
+                for (int i = 0; i < army.Length; i++)
+                {
+                    if (army[i].transform.position == selectedArcher.transform.position + new Vector3(-(Mathf.Sqrt(3) / 2), 0, 1.5f))
+                    {
+                        occupied = true;
+                    }
+                }
+                if (!occupied)
+                {
+                    UpLeft(selectedArcher.transform.position);
+                }
+                else
+                {
+                    print("That tile is occupied. Try moving somewhere else.");
+                }
+                occupied = false;
+            }
         }
-        if (Input.GetKeyDown("left"))
+        if (Input.GetKeyDown("i"))
         {
-            PushLeft(selectedArcher.transform.position);
+            if ((selectedArcher.transform.position.x + (Mathf.Sqrt(3)) > (.5f+ 10 * Mathf.Sqrt(3))) ||
+                (selectedArcher.transform.position.z + 1.5f > 21.0f))
+            {
+                print("Off the board. Illegal move. Try to move elsewhere.");
+            }
+            else
+            {
+                for (int i = 0; i < army.Length; i++)
+                {
+                    if (army[i].transform.position == selectedArcher.transform.position + new Vector3((Mathf.Sqrt(3) / 2), 0, 1.5f))
+                    {
+                        occupied = true;
+                    }
+                }
+                if (!occupied)
+                {
+                    UpRight(selectedArcher.transform.position);
+                }
+                else
+                {
+                    print("That tile is occupied. Try moving somewhere else.");
+                }
+                occupied = false;
+            }
         }
-        if (Input.GetKeyDown("right"))
+        if (Input.GetKeyDown("h"))
         {
-            PushRight(selectedArcher.transform.position);
+
+            if (selectedArcher.transform.position.x + (-Mathf.Sqrt(3)) < -0.1f)
+            {
+                print("Off the board. Illegal move. Try to move elsewhere.");
+            }
+            else
+            {
+                for (int i = 0; i < army.Length; i++)
+                {
+                    if (army[i].transform.position == selectedArcher.transform.position + new Vector3(-(Mathf.Sqrt(3)), 0, 0))
+                    {
+                        occupied = true;
+                    }
+                }
+                if (!occupied)
+                {
+                    PushLeft(selectedArcher.transform.position);
+                }
+                else
+                {
+                    print("That tile is occupied. Try moving somewhere else.");
+                }
+                occupied = false;
+            }
         }
+        if (Input.GetKeyDown("k"))
+        {
+            if (selectedArcher.transform.position.x + (Mathf.Sqrt(3)) > (-.1f+ 10 * Mathf.Sqrt(3)))
+
+            {
+                print("Off the board. Illegal move. Try to move elsewhere.");
+            }
+            else
+            {
+                for (int i = 0; i < army.Length; i++)
+                {
+                    if (army[i].transform.position == selectedArcher.transform.position + new Vector3((Mathf.Sqrt(3)), 0, 0))
+                    {
+                        occupied = true;
+                    }
+                }
+                if (!occupied)
+                {
+                    PushRight(selectedArcher.transform.position);
+                }
+                else
+                {
+                    print("That tile is occupied. Try moving somewhere else.");
+                }
+                occupied = false;
+            }
+        }
+        if (Input.GetKeyDown("n"))
+        {
+            if ((selectedArcher.transform.position.x + (-Mathf.Sqrt(3)) < -(.5f + Mathf.Sqrt(3) / 2)) ||
+                (selectedArcher.transform.position.z + 1.5f < 1.74f))
+            {
+                print("Off the board. Illegal move. Try to move elsewhere.");
+            }
+            else
+            {
+                for (int i = 0; i < army.Length; i++)
+                {
+                    if (army[i].transform.position == selectedArcher.transform.position + new Vector3(-(Mathf.Sqrt(3) / 2), 0, -1.5f))
+                    {
+                        occupied = true;
+                    }
+                }
+                if (!occupied)
+                {
+                    DownLeft(selectedArcher.transform.position);
+                }
+                else
+                {
+                    print("That tile is occupied. Try moving somewhere else.");
+                }
+                occupied = false;
+            }
+        }
+        if (Input.GetKeyDown("m"))
+        {
+            if ((selectedArcher.transform.position.x + (Mathf.Sqrt(3)) > (.5f + 10 * Mathf.Sqrt(3))) ||
+               (selectedArcher.transform.position.z + 1.5f <1.74f))
+            {
+                print("Off the board. Illegal move. Try to move elsewhere.");
+            }
+            else
+            {
+                for (int i = 0; i < army.Length; i++)
+                {
+                    if (army[i].transform.position == selectedArcher.transform.position + new Vector3((Mathf.Sqrt(3) / 2), 0, -1.5f))
+                    {
+                        occupied = true;
+                    }
+                }
+                if (!occupied)
+                {
+                    DownRight(selectedArcher.transform.position);
+                }
+                else
+                {
+                    print("That tile is occupied. Try moving somewhere else.");
+                }
+                occupied = false;
+            }
+        }
+       
     }
 
+    //This function changes the size of the selected piece so the player knows which one is selected
     void selectArcher(GameObject thisArcher)
     {
         selectedArcher.transform.localScale = defaultSize;
@@ -93,6 +245,8 @@ public class Variables : MonoBehaviour {
         thisArcher.transform.localScale = selectedSize;
     }
 
+
+    //These two functions allow the player to toggle between all their game pieces
     void GetArcherLeft()
     {
         if (selectedArcherPosition == 0)
@@ -106,7 +260,6 @@ public class Variables : MonoBehaviour {
             selectArcher(army[selectedArcherPosition]);
         }
     }
-
     void GetArcherRight()
     {
         if (selectedArcherPosition == 5)
@@ -121,22 +274,33 @@ public class Variables : MonoBehaviour {
         }
     }
 
-    void PushUp(Vector3 currPosition)
+
+    //This section has all 6 hex movement functions
+    void DownLeft(Vector3 currPosition)
     {
-        Rigidbody rb = selectedArcher.GetComponent<Rigidbody>();
-       // rb.AddForce(0, 0, 1,ForceMode.Impulse);
-        rb.GetComponent<Rigidbody>().MovePosition(currPosition + moveUp);
+        selectedArcher.transform.position = currPosition + new Vector3(-(Mathf.Sqrt(3) / 2), 0, -1.5f);
+        //Rigidbody rb = selectedArcher.GetComponent<Rigidbody>();
+        // rb.AddForce(0, 0, 1,ForceMode.Impulse);
+        //rb.GetComponent<Rigidbody>().MovePosition(currPosition + moveUp);
+    }
+    void DownRight(Vector3 currPosition)
+    {
+        selectedArcher.transform.position = currPosition + new Vector3((Mathf.Sqrt(3) / 2), 0, -1.5f);
     }
     void PushLeft(Vector3 currPosition)
     {
-        Rigidbody rb = selectedArcher.GetComponent<Rigidbody>();
-        //rb.AddForce(-1, 0, 0, ForceMode.Impulse);
-        rb.GetComponent<Rigidbody>().MovePosition(currPosition + moveLeft);
+        selectedArcher.transform.position = currPosition + new Vector3(-Mathf.Sqrt(3) , 0, 0);
     }
     void PushRight(Vector3 currPosition)
     {
-        Rigidbody rb = selectedArcher.GetComponent<Rigidbody>();
-        //rb.AddForce(1, 0, 0, ForceMode.Impulse);
-        rb.GetComponent<Rigidbody>().MovePosition(currPosition + moveRight);
+        selectedArcher.transform.position = currPosition + new Vector3(Mathf.Sqrt(3), 0, 0);
+    }
+    void UpLeft(Vector3 currPosition)
+    {
+        selectedArcher.transform.position = currPosition + new Vector3(-(Mathf.Sqrt(3) / 2), 0, 1.5f);
+    }
+    void UpRight(Vector3 currPosition)
+    {
+        selectedArcher.transform.position = currPosition + new Vector3((Mathf.Sqrt(3) / 2), 0, 1.5f);
     }
 }
